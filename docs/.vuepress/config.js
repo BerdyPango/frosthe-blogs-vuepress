@@ -6,7 +6,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 export default defineUserConfig({
   lang: 'en-US',
 
-  title: 'FrostHe.Handbook',
+  title: 'FrostHe.TechBook',
   description: 'FrostHe\'s Personal blog site',
 
   theme: defaultTheme({

@@ -1,6 +1,6 @@
 {
   "name": "frosthe-blogs-vuepress",
-  "description": "FrostHe.Handbook",
+  "description": "FrostHe's Personal blog source",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
