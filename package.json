@@ -1,0 +1,21 @@
+{
+  "name": "frosthe-blogs-vuepress",
+  "description": "FrostHe.Handbook",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --clean-cache",
+    "docs:update-package": "pnpm dlx vp-update"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.24",
+    "@vuepress/plugin-blog": "2.0.0-rc.112",
+    "@vuepress/theme-default": "2.0.0-rc.112",
+    "sass-embedded": "^1.89.2",
+    "vue": "^3.5.18",
+    "vuepress": "2.0.0-rc.24"
+  }
+}
