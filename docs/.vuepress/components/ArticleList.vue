@@ -27,8 +27,6 @@ defineProps({
         }}
       </header>
 
-      <hr />
-
       <div class="article-info">
         <span v-if="info.author" class="author">Author: {{ info.author }}</span>
 
@@ -36,12 +34,14 @@ defineProps({
           >Date: {{ new Date(info.date).toLocaleDateString() }}</span
         >
 
-        <span v-if="info.category" class="category"
+        <!-- <span v-if="info.category" class="category"
           >Category: {{ info.category.join(", ") }}</span
         >
 
-        <span v-if="info.tag" class="tag">Tag: {{ info.tag.join(", ") }}</span>
+        <span v-if="info.tag" class="tag">Tag: {{ info.tag.join(", ") }}</span> -->
       </div>
+
+      <hr />
 
       <div v-if="info.excerpt" class="excerpt" v-html="info.excerpt" />
     </article>
