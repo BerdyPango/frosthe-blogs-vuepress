@@ -5,13 +5,14 @@ import { viteBundler } from '@vuepress/bundler-vite'
 
 export default defineUserConfig({
   lang: 'en-US',
-
   title: 'FrostHe.TechBook',
   description: 'FrostHe\'s Personal blog site',
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.png' }],
+  ],
 
   theme: defaultTheme({
-    logo: 'https://vuejs.press/images/hero.png',
-
+    logo: '/images/avatar.jpg',
     navbar: [
       '/',
       {
