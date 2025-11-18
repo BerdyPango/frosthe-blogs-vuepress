@@ -22,6 +22,8 @@
 
 - `redirect()` 函数基于抛出 Error 工作，在编写 try-catch 块时不要把它写在 try 块内。
 
+[🌐Nextjs Templates](https://vercel.com/templates)
+
 ___
 ## 特殊组件或约定
 
