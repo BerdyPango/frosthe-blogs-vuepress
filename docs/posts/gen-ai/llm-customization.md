@@ -34,7 +34,7 @@ Step 3:
 - DPO(Direct Preference Optimization): 通过人类的对比选择直接优化生成模型，使其产生更符合用户需求的结果；调整幅度大
 - PPO(Proximal Policy Optimization): 通过奖励信号(如点赞、点踩)来渐进式调整模型的行为策略；调整幅度小
 
-参考[监督微调](./docs/fine-tuning/README.md)
+参考[监督微调](../gen-ai/fine-tuning.md)
 
 ## RAG(Retrieval-Augmented Generation) - 检索增强生成
 

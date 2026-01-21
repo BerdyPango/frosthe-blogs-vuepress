@@ -108,7 +108,7 @@ ___
 
 ### 一站式解决方案
 
-- [Dify⭐76.3k](https://github.com/langgenius/dify) 作为本地化部署框架。有关Dify 的知识点和使用注意事项，移步 [Dify 文档🔗](./dify/docs/README.md)。
+- [Dify⭐76.3k](https://github.com/langgenius/dify) 作为本地化部署框架。
 - [Dify Plus⭐1.7k](https://github.com/YFGaia/dify-plus): Dify-Plus 是 Dify 的企业级增强版，集成了基于 gin-vue-admin 的管理中心，并针对企业场景进行了功能优化。 🚀 Dify-Plus = 管理中心 + Dify 二开 。
 
 ### 提示词
