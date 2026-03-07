@@ -138,7 +138,7 @@ pango:x:1000:1000::/home/pango:/bin/bash
 
 ## 设置帐号密码 - passwd
 
-现在，新建的用户 pango 还没有密码，在设置密码之前是无法登录的，执行 `passwd` <username> 来为新用户指定密码：
+现在，新建的用户 pango 还没有密码，在设置密码之前是无法登录的，执行 `passwd <username>` 来为新用户指定密码：
 ``` bash
 
 $ passwd [--stdin] [帐号名称] # 所有人均可使用来改自己的密码 

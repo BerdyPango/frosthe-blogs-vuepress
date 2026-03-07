@@ -12,14 +12,14 @@ tag:
 - [Types](#types)
   - [Core Types](#core-types)
   - [Object Type](#object-type)
-  - [Union & Intersection Types](#union--intersection-types)
+  - [Union \& Intersection Types](#union--intersection-types)
   - [Literal Types](#literal-types)
   - [Discriminated Unions](#discriminated-unions)
   - [Type Aliases](#type-aliases)
-  - [Void Type & Never Type](#void-type--never-type)
+  - [Void Type \& Never Type](#void-type--never-type)
   - [Functions as Types](#functions-as-types)
   - [Unknown Type](#unknown-type)
-- [Classes & Interfaces](#classes--interfaces)
+- [Classes \& Interfaces](#classes--interfaces)
   - [Classes](#classes)
   - [Interfaces](#interfaces)
   - [Type Alias vs. Interfaces](#type-alias-vs-interfaces)
@@ -31,7 +31,7 @@ tag:
   - ["in" keyword](#in-keyword)
   - ["instanceof" keyword](#instanceof-keyword)
   - [Type Casting](#type-casting)
-    - [<TType> before the variable](#ttype-before-the-variable)
+    - [`<TType>` before the variable](#ttype-before-the-variable)
     - ["as" keyword after the variable](#as-keyword-after-the-variable)
 - [Index Properties](#index-properties)
 - [Function Overloads](#function-overloads)
@@ -323,7 +323,7 @@ const element = document.getElementById("user-input");
 element.value = "Hi there!";
 ```
 
-#### <TType> before the variable
+#### `<TType>` before the variable
 
 ```typescript
 const element = <HTMLInputElement>document.getElementById("user-input");

@@ -26,9 +26,6 @@ tag:
 - [Unsloth](https://github.com/unslothai/unsloth)
 - [transformers.Trainer](https://huggingface.co/docs/transformers/zh/main_classes/trainer)
 
-![微调框架对比表](./framework.jpg "微调框架对比表")
-
-
 微调算法:
 
 - 全参数微调

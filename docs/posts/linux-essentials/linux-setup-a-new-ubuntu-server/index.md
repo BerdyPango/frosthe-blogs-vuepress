@@ -57,7 +57,7 @@ $sudo useradd -u 2500 -m -c "FrostHe" -s -g sudo -G pango pango
 ```
 该命令创建一个名为 `pango` 的用户，`uid` 为 2500，要求为该用户创建 Home 目录，使用预设值设置 `shell` 环境，加入初始群组 `sudo`，同时加入次要群组 `pango`。由于先前已经创建了群组，在创建该用户时就不会再创建与之同名的新的群组，而是将该用户加入到该群组下。
 
-现在，新建用户 pango 还没有密码，设置密码之前是无法登录 shell 的，执行 `passwd` <username> 来为新用户指定密码：
+现在，新建用户 pango 还没有密码，设置密码之前是无法登录 shell 的，执行 `passwd <username>` 来为新用户指定密码：
 ``` bash
 $sudo passwd pango
 Enter new Unix Password:

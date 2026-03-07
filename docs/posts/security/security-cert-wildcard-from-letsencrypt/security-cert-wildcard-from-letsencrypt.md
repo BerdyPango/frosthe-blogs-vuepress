@@ -63,9 +63,7 @@ Before continuing, verify the record is deployed.
 Press Enter to Continue
 
 ```
-现在，登录 `frosthe.net` 域名注册商的后台管理界面，按照上述要求添加一条如下图的解析记录:
-![添加 TXT 解析记录](./txt-res-record.pnt)
-确认无误后，回车，得到如下信息:
+现在，登录 `frosthe.net` 域名注册商的后台管理界面。确认无误后，回车，得到如下信息:
 ```bash
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at:

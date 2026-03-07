@@ -14,17 +14,15 @@ tag:
 - [Options Github Source](https://github.com/aspnet/Options)
 
 本文大纲: 
-<!-- TOC -->
-- [Options 模式](#options-%E6%A8%A1%E5%BC%8F)
-    - [配置绑定](#%E9%85%8D%E7%BD%AE%E7%BB%91%E5%AE%9A)
-    - [扩展方法 AddOptions](#%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-addoptions)
-        - [OptionsManager<TOptions>](#optionsmanagertoptions)
-        - [IConfigureOptions<in TOptions>](#iconfigureoptionsin-toptions)
-        - [ConfigureOptions<TOptions>](#configureoptionstoptions)
-    - [扩展方法 Configure](#%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-configure)
-    - [创建 Options 对象](#%E5%88%9B%E5%BB%BA-options-%E5%AF%B9%E8%B1%A1)
 
-<!-- /TOC -->
+- [Options 模式](#options-模式)
+  - [配置绑定](#配置绑定)
+  - [扩展方法 AddOptions](#扩展方法-addoptions)
+    - [`OptionsManager<TOptions>`](#optionsmanagertoptions)
+    - [`IConfigureOptions<in TOptions>`](#iconfigureoptionsin-toptions)
+    - [`ConfigureOptions<TOptions>`](#configureoptionstoptions)
+  - [扩展方法 Configure](#扩展方法-configure)
+  - [创建 Options 对象](#创建-options-对象)
 
 # Options 模式
 在真实的项目中我们大多采用 `Options` 模式来使用配置，`Options` 是配置的逻辑结构在对象层面的体现，通常，可以将一个 `Configuration` 对象绑定为一个 `Options` 对象。这样的绑定称为**「配置绑定」**。
@@ -61,7 +59,7 @@ public static IServiceCollection AddOptions(this IServiceCollection services)
 }
 ```
 以下是几个相关类型的定义:
-### OptionsManager<TOptions>
+### `OptionsManager<TOptions>`
 ```csharp
 public class OptionsManager<TOptions> : IOptions<TOptions> where TOptions: class, new()
 {
@@ -71,7 +69,7 @@ public class OptionsManager<TOptions> : IOptions<TOptions> where TOptions: class
 ```
 `OptionsManager<TOptions>` 类型的构造函数接受一个 `IConfigureOptions<TOptions>` 的集合，`Options` 对象的创建体现在 `Value` 属性上。该属性的实现非常简单，它先调用 `TOptions` 类型的默认无参构造函数(`TOptions` 代表的类型必须具有一个默认无参构造函数)创建一个空的 `TOptions` 对象，然后将其传递给构造函数中指定的`ConfigureOptions<TOptions>` 对象逐个进行转换处理。
 
-### IConfigureOptions<in TOptions>
+### `IConfigureOptions<in TOptions>`
 ```csharp
 public interface IConfigureOptions<in TOptions> where TOptions: class
 {
@@ -80,7 +78,7 @@ public interface IConfigureOptions<in TOptions> where TOptions: class
 ```
 `IConfigureOptions<TOptions>` 接口定义了一个唯一的 `Configure` 方法，该方法将 `Options` 对象作为输入参数。
 
-### ConfigureOptions<TOptions>
+### `ConfigureOptions<TOptions>`
 ```csharp
 public class ConfigureOptions<TOptions>: IConfigureOptions<TOptions> where TOptions : class, new()
 {
@@ -126,7 +124,4 @@ Options 编程模式以两个注册到 `ServiceCollection` 的服务为核心，
 - `IOptions<TOptions>`: 直接提供最终绑定了配置数据的 `Options` 对象
 - `IConfigureOptions<TOptions>`: 在 `Options` 对象返回之前对它实施相应的初始化工作。
 
-这个两个服务分别通过扩展方法 `AddOptions` 和 `Configure` 方法注册到指定的 `ServiceCollection` 中，服务的真实类型分别是 `OptionsManager<TOptions>` 和 `NamedConfigureFromConfigurationOptions<TOptions>`，后者派生于 `ConfigureOptions<TOptions>`。下图所示的 UML 体现了 `Options` 模型中涉及的这些接口／类型以及它们之间的关系。
-
-![对象关系图](./options-uml.png)
-
+这个两个服务分别通过扩展方法 `AddOptions` 和 `Configure` 方法注册到指定的 `ServiceCollection` 中，服务的真实类型分别是 `OptionsManager<TOptions>` 和 `NamedConfigureFromConfigurationOptions<TOptions>`，后者派生于 `ConfigureOptions<TOptions>`。下图所示的 UML 体现了 `Options` 模型中涉及的这些接口/类型以及它们之间的关系。
