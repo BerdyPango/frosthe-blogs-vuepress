@@ -43,13 +43,13 @@ tag:
 | **Pricing** | $15/1M input tokens, $75/1M output tokens |
 | **开发平台** | [Anthropic Console](https://console.anthropic.com) |
 
-| 排名 | Agent         | 得分  | 备注                                  |
-| ---- | ------------- | ----- | ------------------------------------- |
-| 1    | Zed AI        | 27034 | 有过度工程化（over-engineering）倾向  |
-| 2    | Warp          | 27024 | 只有 terminal 终端，没有提供 IDE 扩展 |
-| 3    | Claude Code   | 26930 |                                       |
-| 4    | RooCode       | 26874 |                                       |
-| 5    | RooCode - Med | 26750 |                                       |
+| 排名 | Agent         | 得分  | 相对得分 | 备注                                  |
+| ---- | ------------- | ----- | -------- | ------------------------------------- |
+| 1    | Zed AI        | 27034 | 100%     | 有过度工程化（over-engineering）倾向  |
+| 2    | Warp          | 27024 | 99.96%   | 只有 terminal 终端，没有提供 IDE 扩展 |
+| 3    | Claude Code   | 26930 | 99.62%   |                                       |
+| 4    | RooCode       | 26874 | 99.42%   |                                       |
+| 5    | RooCode - Med | 26750 | 98.97%   |                                       |
 
 ### GPT-5 / Codex（Medium / High 模式）
 
@@ -59,13 +59,13 @@ tag:
 | **Pricing** | Codex CLI Medium: $5/1M tokens, Codex CLI High: $15/1M tokens |
 | **开发平台** | [OpenAI Platform](https://platform.openai.com) |
 
-| 排名 | Agent            | 得分  | 备注 |
-| ---- | ---------------- | ----- | ---- |
-| 1    | Codex CLI High   | 26734 |      |
-| 2    | Codex CLI Medium | 26218 |      |
-| 3    | Windsurf         | 25850 |      |
-| 4    | FactoryCLI       | 25042 |      |
-| 5    | opencode         | 24050 |      |
+| 排名 | Agent            | 得分  | 相对得分 | 备注 |
+| ---- | ---------------- | ----- | -------- | ---- |
+| 1    | Codex CLI High   | 26734 | 100%     |      |
+| 2    | Codex CLI Medium | 26218 | 98.11%   |      |
+| 3    | Windsurf         | 25850 | 96.69%   |      |
+| 4    | FactoryCLI       | 25042 | 93.69%   |      |
+| 5    | opencode         | 24050 | 89.97%   |      |
 
 ### GLM 4.6（智谱）
 
@@ -75,12 +75,12 @@ tag:
 | **Pricing** | ¥5/1M tokens (国内), $0.7/1M tokens (国际) |
 | **开发平台** | [智谱开放平台](https://open.bigmodel.cn) |
 
-| 排名 | Agent    | 得分  | 备注                                 |
-| ---- | -------- | ----- | ------------------------------------ |
-| 1    | Zed AI   | 26074 | 有过度工程化（over-engineering）倾向 |
-| 2    | Crush    | 25082 |                                      |
-| 3    | RooCode  | 24274 |                                      |
-| 4    | opencode | 23554 |                                      |
+| 排名 | Agent    | 得分  | 相对得分 | 备注                                 |
+| ---- | -------- | ----- | -------- | ------------------------------------ |
+| 1    | Zed AI   | 26074 | 100%     | 有过度工程化（over-engineering）倾向 |
+| 2    | Crush    | 25082 | 96.21%   |                                      |
+| 3    | RooCode  | 24274 | 93.12%   |                                      |
+| 4    | opencode | 23554 | 90.35%   |                                      |
 
 ### Grok Code Fast 1
 
@@ -90,38 +90,35 @@ tag:
 | **Pricing** | $0.50/1M input tokens, $15/1M output tokens |
 | **开发平台** | [xAI Console](https://console.x.ai) |
 
-| 排名 | Agent          | 得分  |
-| ---- | -------------- | ----- |
-| 1    | RooCode        | 24270 |
-| 2    | GitHub Copilot | 23814 |
-| 3    | Cursor         | 23270 |
-| 4    | Windsurf       | 23154 |
-| 5    | Crush          | 19114 |
+| 排名 | Agent          | 得分  | 相对得分 |
+| ---- | -------------- | ----- | -------- |
+| 1    | RooCode        | 24270 | 100%     |
+| 2    | GitHub Copilot | 23814 | 98.11%   |
+| 3    | Cursor         | 23270 | 95.87%   |
+| 4    | Windsurf       | 23154 | 95.40%   |
+| 5    | Crush          | 19114 | 78.76%   |
 
 ---
 
-### 综合对比总表
+## 综合对比
 
-> 各模型下各 Agent 的排名综合（- 表示未参与测试，✓ 表示进入前五）
+基于最新的测试数据，我们得出以下关键发现：
 
-| Agent            | Claude Sonnet 4.5 | GPT-5 Codex   | GLM 4.6 | Grok Code Fast 1 |
-| ---------------- | ----------------- | ------------- | ------- | ---------------- |
-| Zed AI           | 🥇 1st             | -             | 🥇 1st   | -                |
-| Codex CLI High   | -                 | 🥇 1st (26734) | -       | -                |
-| Codex CLI Medium | -                 | 🥈 2nd (26218) | -       | -                |
-| Windsurf         | -                 | 🥉 3rd (25850) | -       | 4th (23154)      |
-| FactoryCLI       | -                 | 4th (25042)   | -       | -                |
-| opencode         | 5th               | 5th (24050)   | 4th     | -                |
-| Claude Code      | 🥉 3rd             | -             | -       | -                |
-| Warp             | 🥈 2nd (27024)     | -             | -       | -                |
-| RooCode          | 4th               | -             | 🥉 3rd   | 🥇 1st (24270)    |
-| RooCode - Med    | 5th               | -             | -       | -                |
-| Crush            | -                 | -             | 🥈 2nd   | 5th (19114)      |
-| GitHub Copilot   | -                 | -             | -       | 🥈 2nd (23814)    |
-| Cursor           | -                 | -             | -       | 🥉 3rd (23270)    |
+### 核心结论
 
-备注:
+1. **性能表现**：
+   - **Claude Sonnet 4.5** 整体表现最优，前 5 名平均得分达到 26,902.4
+   - **GPT-5/Codex** 系列表现稳定，但需与特定 Agent 工具配合使用
+   - **GLM 4.6** 作为国产模型表现不俗，但与顶级模型仍有差距
+   - **Grok Code Fast 1** 性能相对较弱，但成本优势明显
 
-- Zed AI 由于过度工程化，任务执行时常过长且 token 消耗量偏大
-- 开源 Agent 工具目前挑选 RooCode 和 opencode 即可
-- ~~RooCode + Grok Code Fast 1 的组合凭借其极低的使用成本，成为最具性价比的组合。~~
+2. **Agent 特性分析**：
+   - **Zed AI** 性能最佳但存在过度工程化问题
+   - **RooCode** 表现全面，多模型适配性好
+
+## 总结
+
+- **Zed AI 由于过度工程化**，任务执行时常过长且 token 消耗量偏大，适合追求极致性能的场景
+- **开源 Agent 工具目前挑选 RooCode 和 opencode 即可**，两者在各自领域都有不错的表现
+- ~~**RooCode + Grok Code Fast 1 的组合凭借其极低的使用成本，成为最具性价比的组合**，适合大多数个人开发者~~
+- **选择建议**：根据项目规模、预算和技术栈需求选择合适的组合，不必盲目追求最高性能
