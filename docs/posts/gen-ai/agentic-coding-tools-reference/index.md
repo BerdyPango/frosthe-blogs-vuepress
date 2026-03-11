@@ -1,7 +1,7 @@
 ---
-title: Vibe Coding Agents 组合及比较
+title: AI 编程工具及 LLM 组合比较
 author: Frost He
-excerpt: 通过比较市面上常见的 Agents 及 LLMs 的适配度，提供一个组合选择的参考
+excerpt: 通过比较市面上常见的 AI 编程工具及 LLMs 的适配度，提供一个组合选择的参考
 date: 2026-03-07
 category:
 - GenAI
@@ -11,9 +11,9 @@ tag:
 - vibe-coding
 ---
 
-## Vibe Coding Agent
+## AI 编程工具 (AI Coding Tools)
 
-目前市面上主流的 Vibe Coding Agent 工具如下：
+目前市面上主流的 AI 编程工具（含 IDE/编辑器、IDE 插件、CLI/TUI、AI 终端）如下：
 
 | Agent                                                                                     | 提供方              | 简介                                                                             |
 | ----------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------- |
