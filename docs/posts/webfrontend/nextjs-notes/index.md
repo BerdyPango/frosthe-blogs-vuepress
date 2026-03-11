@@ -13,74 +13,80 @@ tag:
 
 # Next.js 开发笔记
 
-## 基于文件夹的 Routing
+这篇笔记以 Next.js App Router 为主线，按「路由与文件约定 → 组件模型 → 错误处理 → 渲染模型 → React 新特性」的顺序整理。
 
-### 路由分组
+## 1. 路由与文件约定（App Router）
 
-`()`：括号创建了一个路由组 (Route Groups)，它允许将文件按逻辑组进行整理，同时不影响 URL 路径结构。当用括号 `()` 创建新文件夹时，文件夹名称不会包含在 URL 路径中。因此，`/dashboard/(overview)/page.tsx` 将依然对应 `/dashboard` URL。
+### 1.1 路由分组（Route Groups）
 
-详情查看 [🌐Route Groups](https://nextjs.org/docs/app/api-reference/file-conventions/route-groups)
+`()`：括号用于创建路由分组（Route Groups）。它可以把文件按逻辑分组整理，但不会影响 URL 结构。
 
-### 动态路由
+例如：`/dashboard/(overview)/page.tsx` 仍然对应 `/dashboard`。
 
-`[]`：定义动态路由参数，如 `[id]`，如 `[post]`, `[slug]` 等。中括号中的值将被视为 route token 的 key，以属性名附加到 `params` 的，并将整个对象传递给 `page.tsx` 的函数。
+详情： [🌐 Route Groups](https://nextjs.org/docs/app/api-reference/file-conventions/route-groups)
 
-详情查看 [🌐Dynamic Route Segments](https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes)
+### 1.2 动态路由（Dynamic Route Segments）
 
-### 安全插件
+`[]`：用于定义动态路由参数，例如 `[id]`、`[post]`、`[slug]`。
 
-- `auth.config.ts`：该文件必须位于项目根目录，用以配置 [🌐next-auth.js](https://authjs.dev/reference/nextjs) 实现认证、授权等安全功能。
-- `proxy.ts`：该文件必须位于项目根目录下，用于编写请求发送前后的拦截功能，类似于传统的中间件。详情查看 [🌐proxy.ts](https://nextjs.org/docs/app/api-reference/file-conventions/proxy)。
+中括号内的值会作为 route token 的 key，最终以 `params` 的形式传入 `page.tsx`（或 `layout.tsx`）对应的组件。
 
-### 约定注意项
+详情： [🌐 Dynamic Route Segments](https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes)
 
-- `redirect()` 函数基于抛出 Error 工作，在编写 try-catch 块时不要把它写在 try 块内。
+### 1.3 根目录约定文件（安全与请求拦截）
 
-[🌐Nextjs Templates](https://vercel.com/templates)
+- `auth.config.ts`：必须位于项目根目录，用于配置 [🌐 next-auth.js](https://authjs.dev/reference/nextjs)（认证 / 授权）。
+- `proxy.ts`：必须位于项目根目录，用于编写请求发送前后的拦截逻辑，类似传统中间件。
+  - 详情： [🌐 proxy.ts](https://nextjs.org/docs/app/api-reference/file-conventions/proxy)
 
-## 特殊组件或约定
+### 1.4 约定注意项
 
-### 特殊组件
+- `redirect()` 基于抛出 `Error` 实现；如果你在 `try/catch` 中使用它，不要把它放进 `try` 块里，否则会被误捕获。
 
-- `layout.tsx`：布局组件
-- `page.tsx`：页面组件
-- `loading.tsx` 文件：一个基于 React `Suspense` 构建的特殊 Next.js 文件。它使得在页面内容加载期间作为替代页面显示出来。在 `loading.tsx` 中添加的任何 UI 元素都将作为静态文件的一部分，并在页面加载时发送给客户端。
-- `error.tsx`：用于路由级别的错误处理，它可作为一段路由对异常/错误的 catch-all 处理方式，向用户展示准备好的 UI 界面。详情见 [error.tsx 通用异常处理](#errortsx-通用异常处理)
-  - `not-found.tsx`：用于处理 `notFound` 错误场景。详情见[特定错误场景](#特定错误场景)
-  - 特定错误函数诸如 `notFound` 会优先于 `error.tsx` 被调用。
-- `global-error.tsx`：全局错误处理组件，该文件需放置在应用程序的根路由下。该组件必须定义 `<html>` 和 `<body` 标签，因为它会在渲染时替换根 layout 的模板。
+参考： [🌐 Next.js Templates](https://vercel.com/templates)
 
-### 内置组件
+## 2. 特殊文件与组件类型
 
-- Link
-- Suspense
+### 2.1 特殊文件（File Conventions）
 
-### 客户端组件
+- `layout.tsx`：布局组件。
+- `page.tsx`：页面组件。
+- `loading.tsx`：基于 React `Suspense` 的加载占位 UI。`loading.tsx` 的 UI 会作为静态资源的一部分在页面加载时发送到客户端。
+- `error.tsx`：路由级错误边界（捕获该路由下的子路由渲染错误）。
+- `not-found.tsx`：处理 404 / `notFound()` 场景；优先级高于 `error.tsx`。
+- `global-error.tsx`：全局错误处理组件，放在根路由下；必须包含 `<html>` 与 `<body>`，因为它会替换根 `layout` 的模板。
 
-Next.js 默认是服务端组件，可以在组件顶部编写 "use client" 来指示该组件是纯客户端运行的组件。
+### 2.2 内置组件
 
-```typescript
-"use client"
+- `Link`
+- `Suspense`
+
+### 2.3 Client Component（"use client"）
+
+Next.js 默认使用 Server Component。若要声明某个组件在客户端运行，需要在文件顶部添加 `"use client"`：
+
+```ts
+"use client";
 ```
 
-客户端组件与传统 SPA 程序组件的功能一样，可以访问 DOM API，使用事件处理器及 hooks。
+Client Component 与传统 SPA 组件类似：可以访问 DOM API、使用事件处理器与 React Hooks。
 
-## 错误处理
+## 3. 错误处理
 
-### `error.tsx` 通用异常处理
+### 3.1 `error.tsx`：通用异常处理
 
-[🌐error](https://nextjs.org/docs/app/api-reference/file-conventions/error)
+文档： [🌐 error](https://nextjs.org/docs/app/api-reference/file-conventions/error)
 
-`error.tsx` 用于路由级别的错误处理边界 (捕获所有子路由)，它可作为一段路由对异常/错误的通用处理方式。该组件有以下几个特点:
+`error.tsx` 是路由级错误边界（捕获所有子路由的渲染错误），有几个关键点：
 
-- `error.tsx` 是客户端组件 → `"use client"`。
-- `error.tsx` 中定义的 React 组件接收两个参数，`error` 和 `reset`，将有 nextjs 框架传入:
-  - `error`：JavaScript 原生的 `Error` 对象的一个实例。
-  - `reset()`：该函数重置错误处理边界。执行该函数时，程序会尝试重新渲染其对应的路由。
+- `error.tsx` 必须是 Client Component（即包含 `"use client"`）。
+- 组件会接收两个由框架注入的参数：
+  - `error`：原生 `Error` 实例。
+  - `reset()`：重置错误边界并尝试重新渲染该路由。
 
-> 注意：`error.tsx` 代表的错误边界机制不会捕获事件处理程序中的错误，因为它们的设计初衷是捕获渲染过程中的错误以防止应用程序崩溃。事件处理程序或异步代码中的错误是在渲染之后才出现的，这些错误应当手动处理并在适当时机向用户展示友好的 UI。
+> 注意：错误边界不会捕获事件处理器中的错误（它们发生在渲染之后）。这类错误需要你在业务逻辑中自行处理，并在合适时机展示友好 UI。
 
-`error.tsx` 样板代码：
+样板代码：
 
 ```tsx
 "use client";
@@ -106,29 +112,32 @@ export default function Error({
 }
 ```
 
-### 特定错误场景
+### 3.2 `not-found.tsx`：特定错误场景
 
-[🌐not-found](https://nextjs.org/docs/app/api-reference/file-conventions/not-found)
+文档： [🌐 not-found](https://nextjs.org/docs/app/api-reference/file-conventions/not-found)
 
-- `not-found.tsx`：Next 框架提供了 `next/notFound` 函数来抛出 404 异常，通过引入该函数并调用可实现触发该异常。之后，在路由级别文件夹下创建 `not-found.tsx` 组件以在异常触发时告知框架渲染该组件。
+- Next.js 提供 `notFound()`（`next/navigation`）用于触发 404。
+- 在对应路由目录下创建 `not-found.tsx`，用于渲染 404 UI。
 
-## 局部预渲染 (PPR - Partial Prerendering)
+## 4. 渲染模型：PPR（Partial Prerendering）
 
-Next.js 14 引入的一种全新的渲染模型，能够在同一路由下同时利用静态渲染和动态渲染的双重优势。PPR 利用 React 的 `Suspense` 组件让应用程序的部分内容延迟，直到满足某些条件 (例如数据加载完成) 时再进行渲染。可以将动态组件包裹在 `Suspense` 组件中，并为它传递一个 fallback 组件，以便在动态组件加载期间显示该组件。传递给 `fallback` 的组件会同其他静态元素一起嵌入到初始 HTML 文件中，在构建时 (或重新验证时) 静态内容先行预渲染为一个壳，并为动态内容预留占位符。动态内容直到用户访问该路由时才开始渲染。
+PPR（局部预渲染）是 Next.js 14 引入的渲染模型：同一路由下同时利用静态渲染与动态渲染。
 
-```typescript
+核心思路：用 React `Suspense` 把「静态壳」与「动态内容」分隔开。
+
+```tsx
 <Suspense fallback={<RevenueChartSkeleton />}>
   <RevenueChart />
 </Suspense>
 ```
 
-将一个组件包裹在 `Suspense` 中并不会使该组件本身变得具有动态性，而是将 `Suspense` 视作静态代码和动态代码之间的分界线。
+注意：把组件包在 `Suspense` 里并不会让组件本身“变动态”，`Suspense` 更像是静态与动态的边界。
 
-### 启用 PPR 功能
+### 4.1 启用 PPR
 
-要在 Next.js 项目中启用 PPR，打开 `next.config.ts` 文件：
+1）在 `next.config.ts` 中开启实验特性：
 
-```typescript
+```ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -140,66 +149,61 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-之后，在需要启用 PPR 的路由对应的 `layout.tsx` 文件中添加一行代码：
+2）在需要启用 PPR 的路由 `layout.tsx` 中声明：
 
-```typescript
+```ts
 export const experimental_ppr = true;
 ```
 
-## Server Component vs. Client Component
+## 5. Server Component vs Client Component
 
-参考 [Nextjs Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
+参考： [🌐 Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
 
-Server Component 的边界：
+### 5.1 Server Component 适合做什么
 
-- 获取数据，如 Database, API 请求等
-- 需要保密的 API keys, tokens
-- 减少发送到客户端的 Javascript 代码
-- cookies / headers
-- session
+- 数据获取：Database、API 请求等。
+- 需要保密的信息：API keys、tokens。
+- 减少发送到客户端的 JavaScript 代码。
+- 读取 `cookies` / `headers` / `session`。
 
-Client Component 的边界：
+### 5.2 Client Component 适合做什么
 
-- 需要本地状态
-- 处理 onClick, onChange 等事件
-- 生命周期逻辑，如 useEffect, useState 等
-- 调用 Browser-only APIs, 如 window, localStorage, Navigator.geolocation 等
-- 自定义钩子函数
+- 本地状态。
+- 事件处理：`onClick`、`onChange` 等。
+- 生命周期逻辑：`useEffect`、`useState` 等。
+- 调用浏览器专属 API：`window`、`localStorage`、`Navigator.geolocation` 等。
+- 自定义 Hooks。
 
-> Client component 使用 "use client" 指令，它的所有 imports 和子组件都将被视为客户端 bundle 的一部分。
+> Client Component 使用 `"use client"` 指令后，它的所有 imports 与子组件都会被打包进客户端 bundle。
 
-当需要在 Client Component 中使用 Server Component 时，一个常见的做法是在 Client Component 中使用 children 作为 slot 来传递 Server Component。
+一个常见模式：在 Client Component 中用 `children` 作为 slot，传入 Server Component。
 
-## React 特性
+## 6. React 新特性（Next.js 依赖的能力）
 
-Nextjs 利用了一些 React 服务端渲染的新特性以支撑其框架。
+### 6.1 React Server Components
 
-### React Server Component
+文档： [🌐 Server Components](https://react.dev/reference/rsc/server-components)
 
-[🌐Server Components](https://react.dev/reference/rsc/server-components)
+### 6.2 React Server Actions
 
-### React Server Actions
+React Server Actions 允许你直接在服务器上运行异步代码，而不必额外创建 API endpoint 来修改数据。
 
-React Server Actions 允许直接在服务器上运行异步代码，无需创建 API 端点来修改数据。具体来说，可编写在服务器上直接执行的 `async` 异步函数，并从客户端代码或服务器组件调用这些函数。
+它针对常见 Web 安全场景提供了多种机制（例如 encrypted closures、严格输入检查、错误消息哈希、host restrictions 等），以提升整体安全性。
 
-React Server Actions 专门针对 web 常见的安全场景提供了诸如加密闭包 (encrypted closures)、严格的输入检查、错误消息哈希、主机限制 (host restrictions) 等众多功能。所有这些功能协同工作能显著提升应用程序的安全性。
+文档： [🌐 Server Functions](https://react.dev/reference/rsc/server-functions)
 
-[🌐Server Functions](https://react.dev/reference/rsc/server-functions)
+#### 6.2.1 Server Actions 与 `useActionState`
 
-#### Server Actions 与 `useActionState` 一起使用：
+文档： [🌐 useActionState](https://react.dev/reference/react/useActionState)
 
-[🌐useActionState](https://react.dev/reference/react/useActionState)
+`useActionState(action, initialState, permalink?)` 是一个基于表单提交来更新状态的 Hook：
 
-`const [state, formAction, isPending] = useActionState(action, initialState, permalink?)` 是基于表单操作来更新状态的钩子函数。
-
-参数：
-
-- `action(prevState, ...)`：传递给 form 的真实 `action` 函数，当表单提交时，该函数会被调用，其第一个参数是 `prevState`，即前一次提交表单时的状态值。
-- `initialState`：状态的初始值。
-- `permalink`：表单提交后指示浏览器导航至的 URL，可选。
+- `action(prevState, ...)`：表单提交时调用；第一个参数是 `prevState`。
+- `initialState`：初始状态。
+- `permalink`：提交后导航到的 URL（可选）。
 
 返回值：
 
-- `state`：当前状态的值。首次提交时，与 `initialState` 相同；多次提交后，与 `action` 返回的状态一致。
-- `formAction`：一个新的 action 函数，可传递给表单组件或在 `startTransition` 中直接调用。
-- `isPending`：告知当前是否有正在提交的表单处理。
+- `state`：当前状态。
+- `formAction`：可传给 `<form action={...}>` 的 action 函数，或在 `startTransition` 中调用。
+- `isPending`：是否正在提交。
