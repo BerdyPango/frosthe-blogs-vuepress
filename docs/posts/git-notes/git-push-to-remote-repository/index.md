@@ -1,5 +1,6 @@
 ---
 title: Git - 推送至远程仓库
+author: Frost He
 date: 2015-07-03 21:35:17
 description: 在远程机器上搭建 Git Repository
 categories: 

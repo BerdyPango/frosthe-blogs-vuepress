@@ -1,5 +1,6 @@
 ---
 title: Git Worktree - 一个仓库，多个工作目录
+author: Frost He
 date: 2026-03-10
 description: git worktree 让你在磁盘上同时拥有同一仓库的多个工作目录，不再需要 stash、切 branch、再 stash 的循环
 excerpt: git worktree 让你在磁盘上同时拥有同一仓库的多个工作目录，不再需要 stash、切 branch、再 stash 的循环

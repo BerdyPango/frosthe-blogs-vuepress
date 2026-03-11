@@ -1,5 +1,6 @@
 ---
 title: Git Submodule - 在项目中嵌套管理其他仓库
+author: Frost He
 date: 2019-09-13
 description: git submodule 将一个 Git repository 作为另一个的子目录进行管理，两者独立维护各自的版本历史
 excerpt: git submodule 将一个 Git repository 作为另一个的子目录进行管理，两者独立维护各自的版本历史
